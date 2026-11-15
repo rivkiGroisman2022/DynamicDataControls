@@ -1,6 +1,10 @@
+<div dir="rtl">
+
 # צד הלקוח: data-controls-ui
 
 אפליקציית Angular 21 (Standalone, ‏Signals, ‏Angular Material) בעברית ובכיווניות RTL.
+
+<div dir="ltr">
 
 ```powershell
 npm install
@@ -8,6 +12,8 @@ npm start                     # http://localhost:4200, עם proxy ל־API בפו
 npm test -- --watch=false     # בדיקות Vitest
 npm run build                 # בנייה לייצור, לתיקייה dist/
 ```
+
+</div>
 
 | תיקייה | תוכן |
 |---|---|
@@ -18,3 +24,5 @@ npm run build                 # בנייה לייצור, לתיקייה dist/
 | `src/app/features/ai-assistant` | יצירת בקרה בשפה חופשית, והצעות יזומות |
 
 הוראות ההרצה המלאות של המערכת נמצאות ב־[README הראשי](../README.md).
+
+</div>

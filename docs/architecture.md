@@ -1,3 +1,5 @@
+<div dir="rtl">
+
 # ארכיטקטורה ומנגנון הבקרות
 
 ## עקרון מנחה
@@ -6,12 +8,16 @@
 
 ## תמונה כללית
 
+<div dir="ltr">
+
 ```mermaid
 flowchart LR
     UI["Angular<br/>(עברית, RTL)"] -- "HTTP /api" --> API[".NET Web API"]
     API -- "Dapper, פרמטרים" --> DB[("SQL Server")]
     API -- "HTTP + JSON" --> AI["שירות AI (Python)<br/>Mock / Claude"]
 ```
+
+</div>
 
 | רכיב | אחריות | מה הוא **לא** עושה |
 |---|---|---|
@@ -34,6 +40,8 @@ flowchart LR
 
 ## שכבות ה־Backend (Clean Architecture)
 
+<div dir="ltr">
+
 ```
 DataControls.Api             ← Controllers, טיפול גלובלי בשגיאות, הגדרות
       │ תלוי ב־
@@ -42,9 +50,13 @@ DataControls.Infrastructure  ← SQL Server (Dapper), לקוח HTTP לשירות
 DataControls.Core            ← כל הלוגיקה. לא תלוי בשום טכנולוגיה חיצונית
 ```
 
+</div>
+
 `Core` מגדיר ממשקים (`IMetadataProvider`, `IControlRepository`, `IControlQueryExecutor`, `IAiServiceClient`), ו־`Infrastructure` מממש אותם. זהו עקרון **Dependency Inversion**. בזכותו כל הלוגיקה נבדקת בבדיקות יחידה בלי בסיס נתונים, ואפשר להחליף מימוש (בסיס נתונים אחר, ספק AI אחר) בלי לגעת בלוגיקה.
 
 ## מנגנון הבקרות, צעד אחר צעד
+
+<div dir="ltr">
 
 ```mermaid
 flowchart TD
@@ -57,7 +69,11 @@ flowchart TD
     F --> G["תוצאה + שמירה בהיסטוריה"]
 ```
 
+</div>
+
 ### 1. ההגדרה: חוזה JSON
+
+<div dir="ltr">
 
 ```json
 {
@@ -72,6 +88,8 @@ flowchart TD
   }
 }
 ```
+
+</div>
 
 - **רשומה שעונה על התנאי היא חריגה.** הבקרה מתארת את המצב השגוי.
 - `group` היא קבוצה עם `and`/`or` (וגם אפשרות `negate`), שיכולה להכיל קבוצות נוספות. כך אפשר לבנות כל צירוף לוגי.
@@ -111,6 +129,8 @@ flowchart TD
 
 דוגמה אמיתית: השאילתה שנבנית מההגדרה למעלה (חלק מהעמודות הושמטו):
 
+<div dir="ltr">
+
 ```sql
 SELECT TOP (@__maxRows)
     t0.[EmployeeId] AS [__id],
@@ -123,6 +143,8 @@ LEFT JOIN [dbo].[Departments] AS j1 ON j1.[DepartmentId] = t0.[DepartmentId]
 WHERE ((t0.[IsActive] = 1) AND (j1.[IsActive] = 0))
 ORDER BY t0.[EmployeeId]
 ```
+
+</div>
 
 ### 4. אבטחה: שלוש שכבות הגנה
 
@@ -176,6 +198,8 @@ ORDER BY t0.[EmployeeId]
 
 ## הפרדת ה־AI ממנגנון הבקרות (שלב ב')
 
+<div dir="ltr">
+
 ```mermaid
 sequenceDiagram
     participant U as משתמש
@@ -193,6 +217,8 @@ sequenceDiagram
     UI->>API: שמירה רגילה (source = ai)
 ```
 
+</div>
+
 - ה־AI **מציע** הגדרה בפורמט JSON, בדיוק אותו חוזה של שלב א'. הוא לעולם לא מחזיר SQL.
 - **כל הצעה עוברת דרך אותו אימות** של בקרה שנבנתה ידנית. הצעה שגויה לא יכולה לעקוף את המנגנון.
 - שום דבר לא נשמר ולא רץ בלי אישור של המשתמש.
@@ -209,3 +235,5 @@ sequenceDiagram
 | Angular (19) |  • פעולות על עץ התנאים<br>• טיפול בשגיאות API<br>• עיצוב ערכים<br>• סינון וחיפוש בתוצאות |
 
 קובץ ההקשר שבבדיקות ה־Python (`tests/fixtures/schema_context.json`) הוא הפלט האמיתי של `GET /api/ai/schema-context` ב־.NET. כך הבדיקות מוודאות ששני השירותים מדברים באותו חוזה.
+
+</div>

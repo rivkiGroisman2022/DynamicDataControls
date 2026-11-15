@@ -1,3 +1,5 @@
+<div dir="rtl">
+
 # שלב ב': יצירת בקרה בשפה חופשית (הדגמה עם Mock)
 
 ## מה נבנה
@@ -26,6 +28,8 @@
 
 ## הדגמה דרך ה־API
 
+<div dir="ltr">
+
 ```http
 POST http://localhost:5080/api/ai/suggest-control
 Content-Type: application/json
@@ -33,7 +37,11 @@ Content-Type: application/json
 { "text": "מצא עובדים פעילים שגילם נמוך מ־18 ומשכורתם גבוהה מ־15,000 ש\"ח" }
 ```
 
+</div>
+
 תשובה (מקוצרת):
+
+<div dir="ltr">
 
 ```json
 {
@@ -66,6 +74,8 @@ Content-Type: application/json
   "model": "rule-based-hebrew-v1"
 }
 ```
+
+</div>
 
 השדות `definitionText`, `isValid` ו־`errors` מתווספים ב־.NET, אחרי אימות ההצעה. שירות ה־AI לא קובע בעצמו אם ההצעה תקינה.
 
@@ -101,10 +111,16 @@ Content-Type: application/json
 
 הפעלה (לא נדרשת ולא בוצעה במסגרת המטלה):
 
+<div dir="ltr">
+
 ```powershell
 $env:AI_PROVIDER = "claude"
 $env:ANTHROPIC_API_KEY = "<מפתח>"
 .venv\Scripts\python -m uvicorn app.main:app --port 8000
 ```
 
+</div>
+
 ה־.NET, ה־Angular ולוגיקת הבקרות לא משתנים בכלל. זו ההוכחה שההפרדה אמיתית.
+
+</div>
