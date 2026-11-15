@@ -93,6 +93,8 @@ python -m venv .venv
 
 </div>
 
+> אם הפקודה `python` נכשלת (למשל `The system cannot find the path specified`, כשקיצור הדרך של Windows ל־Python שבור), משתמשים במקומה ב־`py`: ‏`py -m venv .venv`. שאר הפקודות לא משתנות, כי הן מפעילות את ה־Python שבתוך `.venv`.
+
 הרצה:
 
 <div dir="ltr">
