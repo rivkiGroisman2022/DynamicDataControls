@@ -1,0 +1,103 @@
+:host { display: block; }
+
+mat-icon.mat-icon { vertical-align: middle; }
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 140px;
+  padding: 12px 20px;
+  border-radius: var(--app-radius);
+  color: var(--severity-high);
+  background: var(--severity-high-bg);
+
+  .number { font-size: 40px; font-weight: 700; line-height: 1.1; }
+  .label { font-size: 13px; }
+
+  &.ok { color: var(--severity-low); background: var(--severity-low-bg); }
+}
+
+.details {
+  flex: 1 1 320px;
+  .definition { display: flex; gap: 6px; margin: 0 0 6px; font-weight: 500; }
+  .definition mat-icon { color: var(--mat-sys-primary); flex-shrink: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 16px; margin: 0; font-size: 13px; }
+  .meta mat-icon { font-size: 16px; width: 16px; height: 16px; margin-inline-end: 4px; }
+}
+
+.warning {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--severity-medium-bg);
+  color: var(--severity-medium);
+}
+
+.ok-icon { color: var(--severity-low); }
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+  .search { flex: 1 1 280px; }
+}
+
+.rule-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.chip-count {
+  margin-inline-start: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--mat-sys-surface-container-highest);
+}
+
+.small { font-size: 12px; margin: 4px 0; }
+
+// The table scrolls sideways on narrow screens, the page itself does not
+.table-wrap {
+  overflow: auto;
+  max-height: 65vh;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 12px;
+}
+
+table { width: 100%; }
+
+th.mat-mdc-header-cell { white-space: nowrap; font-weight: 700; }
+td.mat-mdc-cell { white-space: nowrap; }
+.col-group { font-size: 11px; font-weight: 400; color: var(--mat-sys-on-surface-variant); }
+
+// Fields that took part in the control are highlighted - immediately shows "what is wrong" in the row
+.rule-col { background: color-mix(in srgb, var(--mat-sys-primary-container) 35%, transparent); }
+
+.reasons { white-space: normal !important; min-width: 260px; }
+.reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--severity-high);
+  mat-icon { font-size: 16px; width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+}
+
+.no-data { padding: 24px; text-align: center; color: var(--mat-sys-on-surface-variant); }

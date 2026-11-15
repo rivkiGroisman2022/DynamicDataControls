@@ -1,0 +1,101 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+
+  .search { flex: 1 1 280px; }
+  mat-form-field:not(.search) { flex: 0 1 180px; }
+}
+
+.count { margin: 0 0 8px; }
+
+// Responsive card grid: as many columns as fit, at least 320px each
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--app-gap);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--app-radius);
+  padding: 16px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+
+  &:hover { box-shadow: var(--mat-sys-level2); border-color: transparent; }
+  &.inactive { opacity: 0.7; }
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -6px -6px 0 0;
+}
+
+.entity {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--mat-sys-surface-container-high);
+}
+
+.ai-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: var(--mat-sys-on-tertiary-container);
+  background: var(--mat-sys-tertiary-container);
+}
+
+.small { font-size: 12px; }
+
+.name { margin: 0; font: var(--mat-sys-title-medium); }
+
+.description { margin: 0; color: var(--mat-sys-on-surface-variant); font-size: 14px; }
+
+.definition {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--mat-sys-surface-container-low);
+  font-size: 13px;
+
+  mat-icon { font-size: 18px; width: 18px; height: 18px; color: var(--mat-sys-primary); flex-shrink: 0; }
+  span {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.last-run {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .violations { font-weight: 700; color: var(--severity-high); }
+  .violations.zero { color: var(--severity-low); }
+  .failed { display: flex; align-items: center; gap: 4px; color: var(--mat-sys-error); font-size: 13px; }
+  .failed mat-icon { font-size: 18px; width: 18px; height: 18px; }
+}
+
+.danger { color: var(--mat-sys-error); }

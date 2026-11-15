@@ -1,0 +1,109 @@
+@let r = result();
+
+@if (!compact()) {
+  <section class="summary">
+    <div class="big" [class.ok]="r.totalViolations === 0">
+      <span class="number">{{ r.totalViolations }}</span>
+      <span class="label">{{ r.totalViolations === 1 ? 'רשומה חריגה' : 'רשומות חריגות' }}</span>
+    </div>
+    <div class="details">
+      <p class="definition"><mat-icon>rule</mat-icon>{{ r.definitionText }}</p>
+      <p class="meta muted">
+        <span><mat-icon>schedule</mat-icon>{{ r.runAt | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+        <span><mat-icon>timer</mat-icon>{{ r.durationMs }} מ"ש</span>
+        <span><mat-icon>table_rows</mat-icon>{{ r.entityDisplayName }}</span>
+      </p>
+    </div>
+  </section>
+}
+
+@if (r.isTruncated) {
+  <p class="warning">
+    <mat-icon>info</mat-icon>
+    נמצאו {{ r.totalViolations }} חריגות. מוצגות {{ r.returnedRows }} הראשונות.
+  </p>
+}
+
+@if (r.totalViolations === 0) {
+  <div class="state-box">
+    <mat-icon class="ok-icon">verified</mat-icon>
+    <strong>לא נמצאו חריגות</strong>
+    <span>כל הרשומות עומדות בתנאי הבקרה.</span>
+  </div>
+} @else {
+  <section class="toolbar">
+    <mat-form-field class="search">
+      <mat-label>חיפוש בתוצאות</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [value]="search()" (input)="setSearch($any($event.target).value)" placeholder="שם, ערך או סיבה" />
+      @if (search()) {
+        <button matSuffix mat-icon-button (click)="setSearch('')" aria-label="ניקוי"><mat-icon>close</mat-icon></button>
+      }
+    </mat-form-field>
+
+    <mat-slide-toggle [checked]="showAllColumns()" (change)="showAllColumns.set($event.checked)">
+      הצגת כל השדות
+    </mat-slide-toggle>
+
+    <button mat-stroked-button (click)="exportCsv()" matTooltip="ייצוא הרשומות המסוננות לקובץ Excel (CSV)">
+      <mat-icon>download</mat-icon>ייצוא
+    </button>
+  </section>
+
+  @if (ruleCounts().length > 1) {
+    <section class="rule-filter">
+      <span class="muted">סינון לפי סיבה:</span>
+      <mat-chip-listbox multiple [value]="ruleFilter()" (change)="setRuleFilter($event.value)" aria-label="סינון לפי סיבה">
+        @for (rule of ruleCounts(); track rule.index) {
+          <mat-chip-option [value]="rule.index" [disabled]="rule.count === 0">
+            {{ rule.text }} <span class="chip-count">{{ rule.count }}</span>
+          </mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </section>
+  }
+
+  <p class="muted small">{{ filtered().length }} מתוך {{ r.rows.length }} רשומות</p>
+
+  <div class="table-wrap">
+    <table mat-table [dataSource]="page()" matSort (matSortChange)="sort.set($event)">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>רשומה</th>
+        <td mat-cell *matCellDef="let row">
+          <strong>{{ row.title }}</strong>
+          <div class="muted small">#{{ row.recordId }}</div>
+        </td>
+      </ng-container>
+
+      @for (col of visibleColumns(); track col.key) {
+        <ng-container [matColumnDef]="col.key">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header [class.rule-col]="col.isRuleField">
+            {{ col.displayName }}
+            @if (col.groupLabel.includes('›')) {
+              <div class="col-group">{{ col.groupLabel }}</div>
+            }
+          </th>
+          <td mat-cell *matCellDef="let row" [class.rule-col]="col.isRuleField">{{ row.values[col.key] | fieldValue: col }}</td>
+        </ng-container>
+      }
+
+      <ng-container matColumnDef="reasons">
+        <th mat-header-cell *matHeaderCellDef>סיבת החריגה</th>
+        <td mat-cell *matCellDef="let row" class="reasons">
+          @for (reason of row.reasons; track $index) {
+            <span class="reason"><mat-icon>warning_amber</mat-icon>{{ reason }}</span>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="no-data" [attr.colspan]="displayedColumns().length">אין רשומות שמתאימות לחיפוש</td>
+      </tr>
+    </table>
+  </div>
+
+  <mat-paginator [length]="filtered().length" [pageIndex]="pageIndex()" [pageSize]="pageSize()"
+    [pageSizeOptions]="[10, 25, 50, 100]" (page)="onPage($event)" showFirstLastButtons />
+}

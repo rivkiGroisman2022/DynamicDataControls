@@ -1,0 +1,88 @@
+@use '@angular/material' as mat;
+
+// Material 3 theme. All colors are exposed as CSS variables (--mat-sys-*)
+// that the components use, so the look is consistent and easy to change in one place.
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$violet-palette,
+    ),
+    typography: (
+      plain-family: 'Heebo, Arial, sans-serif',
+      brand-family: 'Heebo, Arial, sans-serif',
+    ),
+    density: 0,
+  ));
+}
+
+:root {
+  --app-radius: 14px;
+  --app-gap: 16px;
+  --app-max-width: 1280px;
+  --severity-high: #b3261e;
+  --severity-high-bg: #fde7e5;
+  --severity-medium: #8a5a00;
+  --severity-medium-bg: #fff1d6;
+  --severity-low: #1d6b3a;
+  --severity-low-bg: #e3f4e8;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Heebo, Arial, sans-serif;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+}
+
+mat-icon.mat-icon { font-family: 'Material Icons Outlined'; }
+
+// ----- Shared utility classes -----
+.page {
+  max-width: var(--app-max-width);
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+
+  h1 { margin: 0; font: var(--mat-sys-headline-small); }
+  p { margin: 4px 0 0; color: var(--mat-sys-on-surface-variant); }
+}
+
+.panel {
+  background: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: var(--app-radius);
+  padding: 20px;
+}
+
+.muted { color: var(--mat-sys-on-surface-variant); }
+.spacer { flex: 1 1 auto; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+
+  mat-icon { font-size: 48px; width: 48px; height: 48px; }
+}
+
+// The snackbar shows errors with a distinct color
+.snack-error { --mat-snack-bar-container-color: var(--mat-sys-error-container); --mat-snack-bar-supporting-text-color: var(--mat-sys-on-error-container); }

@@ -1,0 +1,122 @@
+<div class="rule" [class.invalid]="errors().length > 0">
+  <div class="inputs">
+    <!-- Field: grouped by entity, in business terms -->
+    <mat-form-field class="field">
+      <mat-label>שדה</mat-label>
+      <mat-select [value]="rule().field" (valueChange)="setField($event)" placeholder="בחירת שדה">
+        <mat-select-trigger>{{ field()?.displayName }}</mat-select-trigger>
+        @for (g of fieldGroups(); track g.label) {
+          <mat-optgroup [label]="g.label">
+            @for (f of g.fields; track f.path) {
+              <mat-option [value]="f.path">{{ f.displayName }}</mat-option>
+            }
+          </mat-optgroup>
+        }
+      </mat-select>
+      @if (field(); as f) {
+        <mat-hint>{{ f.groupLabel }}{{ f.description ? ' · ' + f.description : '' }}</mat-hint>
+      }
+    </mat-form-field>
+
+    @if (field()) {
+      <!-- Operator: only the ones that fit the field type -->
+      <mat-form-field class="operator">
+        <mat-label>תנאי</mat-label>
+        <mat-select [value]="rule().operator" (valueChange)="setOperator($event)">
+          @for (op of availableOperators(); track op.key) {
+            <mat-option [value]="op.key">{{ opLabel(op) }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Value: the input type matches the operator and the field -->
+      @switch (arity()) {
+        @case ('single') {
+          @if (compareMode()) {
+            <mat-form-field class="value">
+              <mat-label>שדה להשוואה</mat-label>
+              <mat-select [value]="rule().compareField" (valueChange)="setCompareField($event)">
+                <mat-select-trigger>{{ fieldLabel(rule().compareField) }}</mat-select-trigger>
+                @for (f of compareCandidates(); track f.path) {
+                  <mat-option [value]="f.path">{{ f.displayName }} <span class="muted">({{ f.groupLabel }})</span></mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          } @else if (hasOptions()) {
+            <mat-form-field class="value">
+              <mat-label>ערך</mat-label>
+              <mat-select [value]="rule().value" (valueChange)="setValue($event)">
+                @for (o of field()!.options; track o.value) {
+                  <mat-option [value]="o.value">{{ o.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          } @else {
+            <mat-form-field class="value">
+              <mat-label>ערך</mat-label>
+              <input matInput [type]="inputType()" [value]="rule().value ?? ''" (input)="setValue($any($event.target).value)" />
+              @if (field()!.unit) {
+                <span matTextSuffix>&nbsp;{{ field()!.unit }}</span>
+              }
+            </mat-form-field>
+          }
+          @if (canCompare()) {
+            <button mat-icon-button type="button" class="compare-toggle" (click)="toggleCompare()"
+              [matTooltip]="compareMode() ? 'השוואה לערך קבוע' : 'השוואה לשדה אחר'">
+              <mat-icon>{{ compareMode() ? 'edit' : 'compare_arrows' }}</mat-icon>
+            </button>
+          }
+        }
+
+        @case ('range') {
+          <mat-form-field class="value-half">
+            <mat-label>מ־</mat-label>
+            <input matInput [type]="inputType()" [value]="rule().value ?? ''" (input)="setValue($any($event.target).value)" />
+          </mat-form-field>
+          <mat-form-field class="value-half">
+            <mat-label>עד</mat-label>
+            <input matInput [type]="inputType()" [value]="rule().valueTo ?? ''" (input)="setValue($any($event.target).value, 'valueTo')" />
+          </mat-form-field>
+        }
+
+        @case ('list') {
+          @if (hasOptions()) {
+            <mat-form-field class="value">
+              <mat-label>ערכים</mat-label>
+              <mat-select multiple [value]="rule().values ?? []" (valueChange)="setValues($event)">
+                @for (o of field()!.options; track o.value) {
+                  <mat-option [value]="o.value">{{ o.label }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          } @else {
+            <mat-form-field class="value">
+              <mat-label>ערכים (Enter אחרי כל ערך)</mat-label>
+              <mat-chip-grid #chips>
+                @for (v of rule().values ?? []; track $index) {
+                  <mat-chip-row (removed)="removeListValue($index)">
+                    {{ optionLabel(v) }}
+                    <button matChipRemove type="button"><mat-icon>cancel</mat-icon></button>
+                  </mat-chip-row>
+                }
+                <input [matChipInputFor]="chips" (matChipInputTokenEnd)="addListValue($event)" />
+              </mat-chip-grid>
+            </mat-form-field>
+          }
+        }
+      }
+    }
+  </div>
+
+  <button mat-icon-button type="button" class="remove" (click)="remove.emit()" [disabled]="!removable()" matTooltip="מחיקת התנאי">
+    <mat-icon>delete_outline</mat-icon>
+  </button>
+
+  @if (errors().length > 0) {
+    <ul class="errors">
+      @for (e of errors(); track $index) {
+        <li><mat-icon>error_outline</mat-icon>{{ e }}</li>
+      }
+    </ul>
+  }
+</div>

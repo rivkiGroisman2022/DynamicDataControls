@@ -1,0 +1,52 @@
+// Colored line on the side: blue for "and", purple for "or" - lets you see the logical structure at a glance.
+.group {
+  --group-color: var(--mat-sys-primary);
+  border-inline-start: 4px solid var(--group-color);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--mat-sys-surface-container-low);
+
+  &.or { --group-color: var(--mat-sys-tertiary); }
+  &.nested { background: var(--mat-sys-surface-container); }
+  &.negated { outline: 2px dashed var(--mat-sys-error); outline-offset: -2px; }
+}
+
+.group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.hint { font-size: 13px; color: var(--mat-sys-on-surface-variant); }
+
+.children { display: flex; flex-direction: column; }
+
+.connector {
+  display: flex;
+  justify-content: flex-start;
+  padding: 4px 16px;
+
+  span {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--group-color);
+    padding: 1px 10px;
+    border-radius: 999px;
+    background: var(--mat-sys-surface);
+    border: 1px solid var(--group-color);
+  }
+}
+
+.group-actions { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 8px 0 0;
+  color: var(--mat-sys-error);
+  font-size: 13px;
+  mat-icon { font-size: 16px; width: 16px; height: 16px; }
+}

@@ -1,0 +1,120 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <h1>הבקרות שלי</h1>
+      <p>בקרות שמאתרות שגיאות, חריגות וחוסר עקביות בנתונים</p>
+    </div>
+    <a mat-flat-button routerLink="/controls/new">
+      <mat-icon>add</mat-icon>
+      בקרה חדשה
+    </a>
+  </header>
+
+  <section class="filters panel">
+    <mat-form-field class="search">
+      <mat-label>חיפוש</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [value]="search()" (input)="search.set($any($event.target).value)" placeholder="שם, תיאור או תנאי" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>נתונים</mat-label>
+      <mat-select [value]="entityFilter()" (valueChange)="entityFilter.set($event)">
+        <mat-option value="">הכול</mat-option>
+        @for (e of entities(); track e.key) {
+          <mat-option [value]="e.key">{{ e.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>חומרה</mat-label>
+      <mat-select [value]="severityFilter()" (valueChange)="severityFilter.set($event)">
+        <mat-option value="">הכול</mat-option>
+        <mat-option value="high">גבוהה</mat-option>
+        <mat-option value="medium">בינונית</mat-option>
+        <mat-option value="low">נמוכה</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  } @else if (loadError()) {
+    <div class="state-box panel">
+      <mat-icon>cloud_off</mat-icon>
+      <strong>לא ניתן לטעון את הבקרות</strong>
+      <span>{{ loadError() }}</span>
+      <button mat-stroked-button (click)="load()">ניסיון נוסף</button>
+    </div>
+  } @else if (controls().length === 0) {
+    <div class="state-box panel">
+      <mat-icon>playlist_add</mat-icon>
+      <strong>עדיין אין בקרות</strong>
+      <a mat-flat-button routerLink="/controls/new">יצירת הבקרה הראשונה</a>
+    </div>
+  } @else if (filtered().length === 0) {
+    <div class="state-box panel">
+      <mat-icon>filter_alt_off</mat-icon>
+      <strong>אין בקרות שמתאימות לסינון</strong>
+      <button mat-stroked-button (click)="clearFilters()">ניקוי סינון</button>
+    </div>
+  } @else {
+    <p class="count muted">{{ filtered().length }} בקרות</p>
+    <section class="grid">
+      @for (c of filtered(); track c.id) {
+        <article class="card" [class.inactive]="!c.isActive">
+          <header class="card-head">
+            <app-severity-badge [severity]="c.severity" />
+            <span class="entity">{{ c.entityDisplayName }}</span>
+            @if (c.source === 'ai') {
+              <span class="ai-tag" matTooltip="הבקרה נוצרה בעזרת AI">AI</span>
+            }
+            @if (!c.isActive) {
+              <span class="muted small">לא פעילה</span>
+            }
+            <span class="spacer"></span>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="פעולות נוספות">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <a mat-menu-item [routerLink]="['/controls', c.id, 'edit']"><mat-icon>edit</mat-icon>עריכה</a>
+              <button mat-menu-item (click)="duplicate(c)"><mat-icon>content_copy</mat-icon>שכפול לבקרה חדשה</button>
+              <button mat-menu-item class="danger" (click)="remove(c)"><mat-icon>delete</mat-icon>מחיקה</button>
+            </mat-menu>
+          </header>
+
+          <h2 class="name">{{ c.name }}</h2>
+          @if (c.description) {
+            <p class="description">{{ c.description }}</p>
+          }
+          <p class="definition" [matTooltip]="c.definitionText">
+            <mat-icon>rule</mat-icon>
+            <span>{{ c.definitionText }}</span>
+          </p>
+
+          <footer class="card-foot">
+            <div class="last-run">
+              @if (c.lastRunAt) {
+                @if (c.lastRunStatus === 'failed') {
+                  <span class="failed"><mat-icon>error_outline</mat-icon>ההרצה האחרונה נכשלה</span>
+                } @else {
+                  <span class="violations" [class.zero]="c.lastViolationCount === 0">
+                    {{ c.lastViolationCount }} חריגות
+                  </span>
+                }
+                <span class="muted small">{{ c.lastRunAt | date: 'dd/MM/yy HH:mm' }}</span>
+              } @else {
+                <span class="muted small">טרם הורצה</span>
+              }
+            </div>
+            <button mat-flat-button (click)="run(c)">
+              <mat-icon>play_arrow</mat-icon>
+              הרצה
+            </button>
+          </footer>
+        </article>
+      }
+    </section>
+  }
+</div>

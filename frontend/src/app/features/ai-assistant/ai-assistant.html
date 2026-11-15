@@ -1,0 +1,168 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <h1>יצירת בקרה בשפה חופשית</h1>
+      <p>מתארים במילים אילו רשומות בעייתיות. ה־AI מציע הגדרת בקרה, ואתם מאשרים לפני שמירה או הרצה.</p>
+    </div>
+  </header>
+
+  <!-- Free-text input -->
+  <section class="panel ask">
+    <mat-form-field class="text">
+      <mat-label>תיאור הבקרה</mat-label>
+      <textarea matInput rows="3" maxlength="1000" [value]="text()" (input)="text.set($any($event.target).value)"
+        (keydown.control.enter)="analyze()" placeholder='לדוגמה: מצא עובדים פעילים שגילם נמוך מ־18 ומשכורתם גבוהה מ־15,000 ש"ח'></textarea>
+      <mat-hint>Ctrl+Enter לפענוח</mat-hint>
+    </mat-form-field>
+
+    <div class="row">
+      <button mat-flat-button (click)="analyze()" [disabled]="thinking() || !text().trim()">
+        @if (thinking()) { <mat-spinner diameter="18" /> } @else { <mat-icon>auto_awesome</mat-icon> }
+        פענוח הבקשה
+      </button>
+      <span class="muted small">או נסו דוגמה:</span>
+    </div>
+    <mat-chip-set class="examples">
+      @for (example of examples; track example) {
+        <mat-chip (click)="useExample(example)">{{ example }}</mat-chip>
+      }
+    </mat-chip-set>
+  </section>
+
+  @if (thinking()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  @if (error(); as message) {
+    <div class="panel not-understood">
+      <mat-icon>help_outline</mat-icon>
+      <div>
+        <strong>לא הצלחתי להבין את הבקשה</strong>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  }
+
+  @if (current(); as s) {
+    <ng-container *ngTemplateOutlet="suggestionCard; context: { $implicit: s, main: true }" />
+  }
+
+  <!-- Advanced task: proactive suggestions -->
+  <section class="panel proactive">
+    <h2><mat-icon>tips_and_updates</mat-icon>הצעות יזומות לבקרות איכות</h2>
+    <p class="muted">ה־AI מנתח את מבנה הנתונים (סוגי שדות, קשרים, שדות "פעיל", זוגות תאריכים) ומציע בקרות שכדאי שיהיו.</p>
+    <div class="row">
+      <mat-form-field class="entity-select">
+        <mat-label>נתונים</mat-label>
+        <mat-select [value]="qualityEntity()" (valueChange)="qualityEntity.set($event)">
+          <mat-option value="">כל הנתונים</mat-option>
+          @for (e of entities(); track e.key) {
+            <mat-option [value]="e.key">{{ e.displayNamePlural }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-stroked-button (click)="loadQuality()" [disabled]="qualityLoading()">
+        <mat-icon>search_insights</mat-icon>הצעת בקרות
+      </button>
+    </div>
+    @if (qualityLoading()) {
+      <mat-progress-bar mode="indeterminate" />
+    }
+    <div class="quality-list">
+      @for (q of quality(); track q.id) {
+        <ng-container *ngTemplateOutlet="suggestionCard; context: { $implicit: q, main: false }" />
+      }
+    </div>
+  </section>
+</div>
+
+<!-- A suggestion card: shared by the main suggestion and the proactive ones -->
+<ng-template #suggestionCard let-s let-main="main">
+  <article class="suggestion panel" [class.main]="main" [class.invalid]="!s.suggestion.isValid">
+    <header class="suggestion-head">
+      <mat-icon class="state-icon">{{ s.suggestion.isValid ? 'task_alt' : 'report' }}</mat-icon>
+      <div class="understood">
+        <span class="label">{{ main ? 'כך הבנתי את הבקשה' : s.suggestion.explanation[0] }}</span>
+        @if (s.suggestion.isValid) {
+          <p class="definition-text">{{ s.suggestion.definitionText }}</p>
+        } @else {
+          <p class="definition-text">ההצעה אינה תואמת את מבנה הנתונים ולכן לא ניתן להריץ אותה.</p>
+        }
+      </div>
+      <div class="confidence" [matTooltip]="'רמת הביטחון של ה־AI בפענוח'">
+        <span>ביטחון {{ s.suggestion.confidence * 100 | number: '1.0-0' }}%</span>
+        <mat-progress-bar mode="determinate" [value]="s.suggestion.confidence * 100"
+          [class.low]="s.suggestion.confidence < 0.6" />
+      </div>
+    </header>
+
+    @if (main && s.suggestion.explanation.length) {
+      <div class="explanation">
+        <strong>איך פוענח כל חלק:</strong>
+        <ul>
+          @for (line of s.suggestion.explanation; track $index) { <li>{{ line }}</li> }
+        </ul>
+      </div>
+    }
+
+    @if (s.suggestion.warnings.length) {
+      <ul class="warnings">
+        @for (w of s.suggestion.warnings; track $index) { <li><mat-icon>warning_amber</mat-icon>{{ w }}</li> }
+      </ul>
+    }
+
+    @if (s.suggestion.errors.length) {
+      <ul class="errors">
+        @for (e of s.suggestion.errors; track $index) { <li><mat-icon>error_outline</mat-icon>{{ e.message }}</li> }
+      </ul>
+    }
+
+    @if (s.suggestion.isValid) {
+      <div class="approve">
+        <mat-form-field class="name">
+          <mat-label>שם הבקרה</mat-label>
+          <input matInput [value]="s.name" (input)="setName(s, $any($event.target).value)" maxlength="200" />
+        </mat-form-field>
+        <mat-form-field class="severity">
+          <mat-label>חומרה</mat-label>
+          <mat-select [value]="s.severity" (valueChange)="setSeverity(s, $event)">
+            <mat-option value="high">גבוהה</mat-option>
+            <mat-option value="medium">בינונית</mat-option>
+            <mat-option value="low">נמוכה</mat-option>
+          </mat-select>
+        </mat-form-field>
+        @if (!main) {
+          <app-severity-badge [severity]="s.severity" />
+        }
+      </div>
+
+      <div class="actions">
+        <button mat-flat-button (click)="approveAndSave(s)" [disabled]="s.busy">
+          <mat-icon>check</mat-icon>אישור ושמירה
+        </button>
+        <button mat-stroked-button (click)="testRun(s)" [disabled]="s.busy">
+          @if (s.busy) { <mat-spinner diameter="18" /> } @else { <mat-icon>science</mat-icon> }
+          הרצת ניסיון
+        </button>
+        <button mat-button (click)="openInEditor(s)">
+          <mat-icon>tune</mat-icon>עריכה בעורך
+        </button>
+      </div>
+    } @else {
+      <div class="actions">
+        <button mat-stroked-button (click)="openInEditor(s)"><mat-icon>tune</mat-icon>תיקון בעורך</button>
+      </div>
+    }
+
+    <footer class="provider muted">
+      נוצר על ידי: {{ s.suggestion.provider }}{{ s.suggestion.model ? ' · ' + s.suggestion.model : '' }}
+    </footer>
+
+    @if (s.testResult; as result) {
+      <div class="test">
+        <h3><mat-icon>science</mat-icon>הרצת ניסיון: {{ result.totalViolations }} חריגות</h3>
+        <app-run-results [result]="result" [compact]="true" />
+      </div>
+    }
+  </article>
+</ng-template>

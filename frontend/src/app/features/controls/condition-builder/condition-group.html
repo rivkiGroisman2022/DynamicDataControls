@@ -1,0 +1,74 @@
+<div class="group" [class.nested]="depth() > 0" [class.or]="group().logic === 'or'" [class.negated]="group().negate">
+  <div class="group-head">
+    <mat-button-toggle-group [value]="group().logic" (change)="setLogic($event.value)" hideSingleSelectionIndicator
+      aria-label="קשר בין התנאים">
+      <mat-button-toggle value="and">וגם</mat-button-toggle>
+      <mat-button-toggle value="or">או</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <span class="hint">
+      @if (group().negate) {
+        הרשומה חריגה כאשר <strong>לא</strong> {{ group().logic === 'and' ? 'כל התנאים מתקיימים' : 'אף תנאי אינו מתקיים' }}
+      } @else {
+        הרשומה חריגה כאשר {{ group().logic === 'and' ? 'כל התנאים מתקיימים' : 'לפחות תנאי אחד מתקיים' }}
+      }
+    </span>
+
+    <span class="spacer"></span>
+
+    <mat-slide-toggle [checked]="!!group().negate" (change)="setNegate($event.checked)"
+      matTooltip="היפוך: הרשומה חריגה כאשר התנאים בקבוצה אינם מתקיימים">
+      היפוך
+    </mat-slide-toggle>
+
+    @if (removable()) {
+      <button mat-icon-button type="button" (click)="remove.emit()" matTooltip="מחיקת הקבוצה">
+        <mat-icon>delete_sweep</mat-icon>
+      </button>
+    }
+  </div>
+
+  <div class="children">
+    @for (child of group().conditions; track $index; let i = $index, last = $last) {
+      @if (isRule(child)) {
+        <app-condition-rule
+          [rule]="asRule(child)"
+          (ruleChange)="replaceChild(i, $event)"
+          [fields]="fields()"
+          [operators]="operators()"
+          [errors]="ruleErrors(i)"
+          [removable]="group().conditions.length > 1 || removable()"
+          (remove)="removeChild(i)" />
+      } @else {
+        <app-condition-group
+          [group]="asGroup(child)"
+          (groupChange)="replaceChild(i, $event)"
+          [fields]="fields()"
+          [operators]="operators()"
+          [path]="childPath(i)"
+          [depth]="depth() + 1"
+          [errors]="errors()"
+          [removable]="true"
+          (remove)="removeChild(i)" />
+      }
+      @if (!last) {
+        <div class="connector"><span>{{ logicWord() }}</span></div>
+      }
+    }
+  </div>
+
+  @for (e of ownErrors(); track $index) {
+    <p class="error"><mat-icon>error_outline</mat-icon>{{ e }}</p>
+  }
+
+  <div class="group-actions">
+    <button mat-button type="button" (click)="addRule()">
+      <mat-icon>add</mat-icon>הוספת תנאי
+    </button>
+    @if (canNest()) {
+      <button mat-button type="button" (click)="addGroup()" matTooltip="קבוצה פנימית, למשל: פעיל וגם (חסר אימייל או חסר טלפון)">
+        <mat-icon>account_tree</mat-icon>הוספת קבוצת תנאים
+      </button>
+    }
+  </div>
+</div>

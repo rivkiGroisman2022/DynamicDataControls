@@ -1,0 +1,133 @@
+<div class="page">
+  <header class="page-header">
+    <div>
+      <h1>{{ isEdit() ? 'עריכת בקרה' : 'בקרה חדשה' }}</h1>
+      <p>מגדירים <strong>אילו רשומות נחשבות חריגות</strong>. אין צורך לדעת SQL או את מבנה הטבלאות.</p>
+    </div>
+    <a mat-button routerLink="/controls"><mat-icon>arrow_forward</mat-icon>חזרה לרשימה</a>
+  </header>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  } @else {
+    <div class="layout">
+      <div class="main">
+        <!-- Step 1: control details -->
+        <section class="panel">
+          <h2 class="step"><span>1</span>פרטי הבקרה</h2>
+          <div class="details-grid">
+            <mat-form-field class="name">
+              <mat-label>שם הבקרה</mat-label>
+              <input matInput required maxlength="200" [value]="name()" (input)="name.set($any($event.target).value)"
+                placeholder="לדוגמה: עובדים קטינים עם שכר גבוה" />
+              @if (nameError()) {
+                <mat-error>{{ nameError() }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>חומרה</mat-label>
+              <mat-select [value]="severity()" (valueChange)="severity.set($event)">
+                <mat-option value="high">גבוהה</mat-option>
+                <mat-option value="medium">בינונית</mat-option>
+                <mat-option value="low">נמוכה</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="description">
+              <mat-label>תיאור (לא חובה)</mat-label>
+              <textarea matInput rows="2" maxlength="1000" [value]="description()"
+                (input)="description.set($any($event.target).value)"
+                placeholder="למה הבקרה חשובה ומה עושים כשנמצאת חריגה"></textarea>
+            </mat-form-field>
+
+            <mat-slide-toggle [checked]="isActive()" (change)="isActive.set($event.checked)">בקרה פעילה</mat-slide-toggle>
+          </div>
+        </section>
+
+        <!-- Step 2: which data -->
+        <section class="panel">
+          <h2 class="step"><span>2</span>על אילו נתונים תרוץ הבקרה?</h2>
+          <div class="entities">
+            @for (e of entities(); track e.key) {
+              <button type="button" class="entity-option" [class.selected]="e.key === entityKey()" (click)="e.key !== entityKey() && changeEntity(e.key)">
+                <strong>{{ e.displayNamePlural }}</strong>
+                @if (e.description) {
+                  <span>{{ e.description }}</span>
+                }
+              </button>
+            }
+          </div>
+        </section>
+
+        <!-- Step 3: conditions -->
+        <section class="panel">
+          <h2 class="step"><span>3</span>מתי רשומה נחשבת חריגה?</h2>
+          @if (entityKey()) {
+            <p class="muted tip">
+              אפשר לבחור גם שדות של נתונים קשורים, למשל "{{ entity()?.displayName }} › מחלקה". המערכת מחברת את הטבלאות לבד.
+            </p>
+            <app-condition-group
+              [(group)]="root"
+              [fields]="fields()"
+              [operators]="operators()"
+              [errors]="errorMap()" />
+          }
+        </section>
+      </div>
+
+      <!-- Side panel: live preview and actions -->
+      <aside class="side">
+        <section class="panel sticky">
+          <h2 class="side-title"><mat-icon>visibility</mat-icon>מה הבקרה תמצא</h2>
+          @if (preview(); as p) {
+            @if (p.isValid) {
+              <p class="preview-text">{{ p.definitionText }}</p>
+            } @else {
+              <p class="incomplete">
+                <mat-icon>edit_note</mat-icon>
+                יש להשלים {{ p.errors.length }} {{ p.errors.length === 1 ? 'פרט' : 'פרטים' }} בתנאים
+              </p>
+            }
+          } @else {
+            <p class="muted">בחרו שדה ותנאי כדי לראות תיאור</p>
+          }
+
+          <div class="actions">
+            <button mat-stroked-button (click)="testRun()" [disabled]="testing()">
+              @if (testing()) { <mat-spinner diameter="18" /> } @else { <mat-icon>science</mat-icon> }
+              הרצת ניסיון
+            </button>
+            <button mat-flat-button (click)="save()" [disabled]="saving()">
+              <mat-icon>save</mat-icon>{{ isEdit() ? 'שמירת שינויים' : 'שמירה' }}
+            </button>
+            <button mat-button (click)="save(true)" [disabled]="saving()">
+              <mat-icon>play_circle</mat-icon>שמירה והרצה
+            </button>
+          </div>
+
+          @if (preview()?.sql; as sql) {
+            <mat-expansion-panel class="sql-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title><mat-icon>code</mat-icon>&nbsp;השאילתה שתיווצר (למפתחים)</mat-panel-title>
+              </mat-expansion-panel-header>
+              <pre dir="ltr">{{ sql }}</pre>
+            </mat-expansion-panel>
+          }
+        </section>
+      </aside>
+    </div>
+
+    @if (testResult(); as result) {
+      <section class="panel test-results">
+        <h2 class="side-title">
+          <mat-icon>science</mat-icon>
+          תוצאות הרצת הניסיון: {{ result.totalViolations }} חריגות
+          <span class="spacer"></span>
+          <button mat-icon-button (click)="testResult.set(null)" aria-label="סגירה"><mat-icon>close</mat-icon></button>
+        </h2>
+        <app-run-results [result]="result" [compact]="true" />
+      </section>
+    }
+  }
+</div>

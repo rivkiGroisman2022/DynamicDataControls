@@ -1,0 +1,60 @@
+# Sample requests - can be run directly from VS Code (REST Client extension) or Visual Studio
+@api = http://localhost:5080
+
+### Business entities
+GET {{api}}/api/metadata/entities
+
+### Fields available for controls on employees (including department and branch)
+GET {{api}}/api/metadata/entities/Employee/fields
+
+### Operators
+GET {{api}}/api/metadata/operators
+
+### Control list
+GET {{api}}/api/controls
+
+### Run control 1
+POST {{api}}/api/controls/1/run
+
+### Preview a definition (description in words + SQL)
+POST {{api}}/api/controls/preview
+Content-Type: application/json
+
+{
+  "version": 1,
+  "entity": "Employee",
+  "condition": {
+    "type": "group", "logic": "and",
+    "conditions": [
+      { "type": "rule", "field": "isActive", "operator": "isTrue" },
+      { "type": "rule", "field": "department.branch.isActive", "operator": "isFalse" }
+    ]
+  }
+}
+
+### Test run without saving
+POST {{api}}/api/controls/test-run
+Content-Type: application/json
+
+{
+  "entity": "Employee",
+  "condition": { "type": "rule", "field": "email", "operator": "isEmpty" }
+}
+
+### Injection attempt - stays a plain parameter value, nothing happens
+POST {{api}}/api/controls/test-run
+Content-Type: application/json
+
+{
+  "entity": "Employee",
+  "condition": { "type": "rule", "field": "lastName", "operator": "equals", "value": "x'; DROP TABLE dbo.Employees; --" }
+}
+
+### Invalid definition - returns 400 with the list of errors
+POST {{api}}/api/controls/preview
+Content-Type: application/json
+
+{
+  "entity": "Employee",
+  "condition": { "type": "rule", "field": "salary", "operator": "contains", "value": "abc" }
+}

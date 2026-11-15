@@ -1,0 +1,1474 @@
+{
+ "language": "he",
+ "today": "2026-11-11",
+ "entities": [
+  {
+   "key": "Branch",
+   "displayName": "סניף",
+   "displayNamePlural": "סניפים",
+   "description": "הסניפים הגאוגרפיים של הארגון",
+   "synonyms": [
+    "סניף",
+    "סניפים",
+    "אתר",
+    "אתרים"
+   ],
+   "fields": [
+    {
+     "path": "name",
+     "displayName": "שם הסניף",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "סניף",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "city",
+     "displayName": "עיר",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "סניף",
+     "dataType": "string",
+     "synonyms": [
+      "ישוב",
+      "מיקום"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "isActive",
+     "displayName": "סניף פעיל",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "סניף",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעיל",
+      "פתוח"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "Department",
+   "displayName": "מחלקה",
+   "displayNamePlural": "מחלקות",
+   "description": "היחידות הארגוניות",
+   "synonyms": [
+    "מחלקה",
+    "מחלקות",
+    "יחידה",
+    "יחידות"
+   ],
+   "fields": [
+    {
+     "path": "name",
+     "displayName": "שם המחלקה",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "מחלקה",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "budget",
+     "displayName": "תקציב שנתי",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "מחלקה",
+     "dataType": "number",
+     "unit": "ש\"ח",
+     "synonyms": [
+      "תקציב"
+     ],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "in",
+      "notIn",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "isActive",
+     "displayName": "מחלקה פעילה",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "מחלקה",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעילה",
+      "פעילות"
+     ],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "branch.name",
+     "displayName": "שם הסניף",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "מחלקה › סניף",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "branch.city",
+     "displayName": "עיר",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "מחלקה › סניף",
+     "dataType": "string",
+     "synonyms": [
+      "ישוב",
+      "מיקום"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "branch.isActive",
+     "displayName": "סניף פעיל",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "מחלקה › סניף",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעיל",
+      "פתוח"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "Employee",
+   "displayName": "עובד",
+   "displayNamePlural": "עובדים",
+   "description": "עובדי הארגון, כולל עובדים שסיימו את העסקתם",
+   "synonyms": [
+    "עובד",
+    "עובדים",
+    "עובדת",
+    "עובדות",
+    "מועסק",
+    "מועסקים",
+    "איש צוות"
+   ],
+   "fields": [
+    {
+     "path": "idNumber",
+     "displayName": "תעודת זהות",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "string",
+     "synonyms": [
+      "ת\"ז",
+      "תז",
+      "מספר זהות"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "firstName",
+     "displayName": "שם פרטי",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "lastName",
+     "displayName": "שם משפחה",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "birthDate",
+     "displayName": "תאריך לידה",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "date",
+     "synonyms": [],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "isInPast",
+      "isInFuture",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "age",
+     "displayName": "גיל",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "number",
+     "unit": "שנים",
+     "description": "מחושב אוטומטית מתאריך הלידה",
+     "synonyms": [
+      "גילו",
+      "גילה",
+      "גילם",
+      "בן",
+      "בת"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "in",
+      "notIn",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "email",
+     "displayName": "כתובת אימייל",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "string",
+     "synonyms": [
+      "אימייל",
+      "מייל",
+      "דוא\"ל",
+      "דואר אלקטרוני"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "phone",
+     "displayName": "טלפון",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "string",
+     "synonyms": [
+      "נייד",
+      "פלאפון",
+      "מספר טלפון"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "salary",
+     "displayName": "שכר חודשי",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "number",
+     "unit": "ש\"ח",
+     "description": "שכר ברוטו חודשי",
+     "synonyms": [
+      "שכר",
+      "משכורת",
+      "משכורתו",
+      "משכורתם",
+      "שכרו",
+      "שכרם",
+      "תשלום"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "in",
+      "notIn",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "startDate",
+     "displayName": "תאריך תחילת העסקה",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "date",
+     "synonyms": [
+      "תחילת העסקה",
+      "תאריך התחלה",
+      "תחילת עבודה"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "isInPast",
+      "isInFuture",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "endDate",
+     "displayName": "תאריך סיום העסקה",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "date",
+     "description": "ריק לעובד שעדיין מועסק",
+     "synonyms": [
+      "סיום העסקה",
+      "תאריך סיום",
+      "סיום עבודה"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "isInPast",
+      "isInFuture",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "isActive",
+     "displayName": "עובד פעיל",
+     "entityKey": "Employee",
+     "entityDisplayName": "עובד",
+     "groupLabel": "עובד",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעיל",
+      "פעילים",
+      "פעילה"
+     ],
+     "entitySynonyms": [
+      "עובד",
+      "עובדים",
+      "עובד",
+      "עובדים",
+      "עובדת",
+      "עובדות",
+      "מועסק",
+      "מועסקים",
+      "איש צוות"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.name",
+     "displayName": "שם המחלקה",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "עובד › מחלקה",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.budget",
+     "displayName": "תקציב שנתי",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "עובד › מחלקה",
+     "dataType": "number",
+     "unit": "ש\"ח",
+     "synonyms": [
+      "תקציב"
+     ],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "in",
+      "notIn",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.isActive",
+     "displayName": "מחלקה פעילה",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "עובד › מחלקה",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעילה",
+      "פעילות"
+     ],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.branch.name",
+     "displayName": "שם הסניף",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "עובד › מחלקה › סניף",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.branch.city",
+     "displayName": "עיר",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "עובד › מחלקה › סניף",
+     "dataType": "string",
+     "synonyms": [
+      "ישוב",
+      "מיקום"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.branch.isActive",
+     "displayName": "סניף פעיל",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "עובד › מחלקה › סניף",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעיל",
+      "פתוח"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "Project",
+   "displayName": "פרויקט",
+   "displayNamePlural": "פרויקטים",
+   "description": "פרויקטים בניהול המחלקות",
+   "synonyms": [
+    "פרויקט",
+    "פרויקטים",
+    "פרוייקט",
+    "פרוייקטים"
+   ],
+   "fields": [
+    {
+     "path": "name",
+     "displayName": "שם הפרויקט",
+     "entityKey": "Project",
+     "entityDisplayName": "פרויקט",
+     "groupLabel": "פרויקט",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "פרויקט",
+      "פרויקטים",
+      "פרויקט",
+      "פרויקטים",
+      "פרוייקט",
+      "פרוייקטים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "budget",
+     "displayName": "תקציב הפרויקט",
+     "entityKey": "Project",
+     "entityDisplayName": "פרויקט",
+     "groupLabel": "פרויקט",
+     "dataType": "number",
+     "unit": "ש\"ח",
+     "synonyms": [
+      "תקציב"
+     ],
+     "entitySynonyms": [
+      "פרויקט",
+      "פרויקטים",
+      "פרויקט",
+      "פרויקטים",
+      "פרוייקט",
+      "פרוייקטים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "in",
+      "notIn",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "startDate",
+     "displayName": "תאריך התחלה",
+     "entityKey": "Project",
+     "entityDisplayName": "פרויקט",
+     "groupLabel": "פרויקט",
+     "dataType": "date",
+     "synonyms": [
+      "התחלה"
+     ],
+     "entitySynonyms": [
+      "פרויקט",
+      "פרויקטים",
+      "פרויקט",
+      "פרויקטים",
+      "פרוייקט",
+      "פרוייקטים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "isInPast",
+      "isInFuture",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "endDate",
+     "displayName": "תאריך סיום",
+     "entityKey": "Project",
+     "entityDisplayName": "פרויקט",
+     "groupLabel": "פרויקט",
+     "dataType": "date",
+     "synonyms": [
+      "סיום"
+     ],
+     "entitySynonyms": [
+      "פרויקט",
+      "פרויקטים",
+      "פרויקט",
+      "פרויקטים",
+      "פרוייקט",
+      "פרוייקטים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "isInPast",
+      "isInFuture",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "status",
+     "displayName": "סטטוס",
+     "entityKey": "Project",
+     "entityDisplayName": "פרויקט",
+     "groupLabel": "פרויקט",
+     "dataType": "string",
+     "synonyms": [
+      "מצב",
+      "סטטוס"
+     ],
+     "entitySynonyms": [
+      "פרויקט",
+      "פרויקטים",
+      "פרויקט",
+      "פרויקטים",
+      "פרוייקט",
+      "פרוייקטים"
+     ],
+     "options": [
+      {
+       "value": "Planned",
+       "label": "מתוכנן"
+      },
+      {
+       "value": "Active",
+       "label": "פעיל"
+      },
+      {
+       "value": "Closed",
+       "label": "סגור"
+      }
+     ],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.name",
+     "displayName": "שם המחלקה",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "פרויקט › מחלקה",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.budget",
+     "displayName": "תקציב שנתי",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "פרויקט › מחלקה",
+     "dataType": "number",
+     "unit": "ש\"ח",
+     "synonyms": [
+      "תקציב"
+     ],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "greaterThan",
+      "greaterOrEqual",
+      "lessThan",
+      "lessOrEqual",
+      "between",
+      "in",
+      "notIn",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.isActive",
+     "displayName": "מחלקה פעילה",
+     "entityKey": "Department",
+     "entityDisplayName": "מחלקה",
+     "groupLabel": "פרויקט › מחלקה",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעילה",
+      "פעילות"
+     ],
+     "entitySynonyms": [
+      "מחלקה",
+      "מחלקות",
+      "מחלקה",
+      "מחלקות",
+      "יחידה",
+      "יחידות"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.branch.name",
+     "displayName": "שם הסניף",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "פרויקט › מחלקה › סניף",
+     "dataType": "string",
+     "synonyms": [],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.branch.city",
+     "displayName": "עיר",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "פרויקט › מחלקה › סניף",
+     "dataType": "string",
+     "synonyms": [
+      "ישוב",
+      "מיקום"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "equals",
+      "notEquals",
+      "in",
+      "notIn",
+      "contains",
+      "notContains",
+      "startsWith",
+      "endsWith",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    },
+    {
+     "path": "department.branch.isActive",
+     "displayName": "סניף פעיל",
+     "entityKey": "Branch",
+     "entityDisplayName": "סניף",
+     "groupLabel": "פרויקט › מחלקה › סניף",
+     "dataType": "boolean",
+     "synonyms": [
+      "פעיל",
+      "פתוח"
+     ],
+     "entitySynonyms": [
+      "סניף",
+      "סניפים",
+      "סניף",
+      "סניפים",
+      "אתר",
+      "אתרים"
+     ],
+     "options": [],
+     "operators": [
+      "isTrue",
+      "isFalse",
+      "isEmpty",
+      "isNotEmpty"
+     ]
+    }
+   ]
+  }
+ ],
+ "operators": [
+  {
+   "key": "equals",
+   "label": "שווה ל",
+   "dataTypes": [
+    "string",
+    "number",
+    "date"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": true
+  },
+  {
+   "key": "notEquals",
+   "label": "שונה מ",
+   "dataTypes": [
+    "string",
+    "number",
+    "date"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": true
+  },
+  {
+   "key": "greaterThan",
+   "label": "גדול מ",
+   "dateLabel": "מאוחר מ",
+   "dataTypes": [
+    "number",
+    "date"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": true
+  },
+  {
+   "key": "greaterOrEqual",
+   "label": "גדול או שווה ל",
+   "dateLabel": "לא מוקדם מ",
+   "dataTypes": [
+    "number",
+    "date"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": true
+  },
+  {
+   "key": "lessThan",
+   "label": "קטן מ",
+   "dateLabel": "מוקדם מ",
+   "dataTypes": [
+    "number",
+    "date"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": true
+  },
+  {
+   "key": "lessOrEqual",
+   "label": "קטן או שווה ל",
+   "dateLabel": "לא מאוחר מ",
+   "dataTypes": [
+    "number",
+    "date"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": true
+  },
+  {
+   "key": "between",
+   "label": "בין",
+   "dataTypes": [
+    "number",
+    "date"
+   ],
+   "arity": "range",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "in",
+   "label": "אחד מהערכים",
+   "dataTypes": [
+    "string",
+    "number"
+   ],
+   "arity": "list",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "notIn",
+   "label": "אף אחד מהערכים",
+   "dataTypes": [
+    "string",
+    "number"
+   ],
+   "arity": "list",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "contains",
+   "label": "מכיל",
+   "dataTypes": [
+    "string"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "notContains",
+   "label": "לא מכיל",
+   "dataTypes": [
+    "string"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "startsWith",
+   "label": "מתחיל ב",
+   "dataTypes": [
+    "string"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "endsWith",
+   "label": "מסתיים ב",
+   "dataTypes": [
+    "string"
+   ],
+   "arity": "single",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "isEmpty",
+   "label": "ריק / חסר",
+   "dataTypes": [
+    "string",
+    "number",
+    "date",
+    "boolean"
+   ],
+   "arity": "none",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "isNotEmpty",
+   "label": "מולא (לא ריק)",
+   "dataTypes": [
+    "string",
+    "number",
+    "date",
+    "boolean"
+   ],
+   "arity": "none",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "isTrue",
+   "label": "כן",
+   "dataTypes": [
+    "boolean"
+   ],
+   "arity": "none",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "isFalse",
+   "label": "לא",
+   "dataTypes": [
+    "boolean"
+   ],
+   "arity": "none",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "isInPast",
+   "label": "כבר עבר",
+   "dataTypes": [
+    "date"
+   ],
+   "arity": "none",
+   "supportsFieldComparison": false
+  },
+  {
+   "key": "isInFuture",
+   "label": "עתידי",
+   "dataTypes": [
+    "date"
+   ],
+   "arity": "none",
+   "supportsFieldComparison": false
+  }
+ ]
+}
